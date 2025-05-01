@@ -1,10 +1,9 @@
-- 👋 Hi, I’m @BON333
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning HTML
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me
-- 😄 Pronouns:Supra/MClaren
-- ⚡ Fun fact:CR7>Messi
+-  Hi, I’m Hussein
+-  I’m interested in Java, linux and cybersecurity.
+-  I’m currently learning Java.
+-  I’m looking to collaborate on projects based on java.
+-  How to reach me: contact me on husseinfaquircontact@gmail.com 
+-  Fun fact:CR7>Messi
 
 <!---
 BON333/BON333 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
