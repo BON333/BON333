@@ -1,5 +1,5 @@
 # About Me:
-I’m Hussein<br>I’m interested in Java, operating systems and cybersecurity.<br>I’m currently learning Java, c and linux.<br>I’m looking to collaborate on projects based on java.<br>How to reach me: contact me on husseinfaquircontact@gmail.com<br>Fun fact: In linux, cowthink from cowsay package will make a cow think your deepest thoughts in ASCII.
+I’m Hussein<br>I’m interested in Java, DSA, operating systems and cybersecurity.<br>I’m currently learning Java, c and linux.<br>I’m looking to collaborate on projects based on java.<br>How to reach me: contact me on husseinfaquircontact@gmail.com<br>Fun fact: In linux, cowthink from cowsay package will make a cow think your deepest thoughts in ASCII.
 
 
 ## 🌐 Socials:
