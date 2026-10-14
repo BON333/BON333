@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/banner.jpg" alt="Banner" width="100%" height="250" />
+  <img src="assets/bonvel-banner.svg" alt="Hussein — Creator of BonVel Linux" width="100%" />
 </div>
 
 <hr>
