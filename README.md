@@ -14,7 +14,7 @@
 <table>
   <tr>
     <td width="30%">
-      <img src="assets/brain.jpg" alt="Brain" width="100%" />
+      <img src="assets/sudo-wizard.png" alt="Hussein as a wizard holding a burning ThinkPad: I speak fluent sudo" width="100%" />
     </td>
     <td width="100%">
       <b>Hey there! I'm Hussein</b><br><br>
