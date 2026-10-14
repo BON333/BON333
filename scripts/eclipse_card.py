@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Gera o cartão 'Year of the Eclipse' (SVG animado) para o README do perfil."""
-import base64, collections, json, random, subprocess, sys
+import base64, collections, json, os, random, subprocess, sys
 
 portrait_path, out_path = sys.argv[1], sys.argv[2]
 portrait = base64.b64encode(open(portrait_path, "rb").read()).decode()
@@ -28,16 +28,30 @@ def esc(t):
     return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 W, H = 1024, 560
-FONT = "'Courier New',Courier,'Liberation Mono',monospace"
+FONT = "'VT323',monospace"
+TITLE = "'Press Start 2P',monospace"
+PX = 3  # tamanho do "pixel" da arte
+FONTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "fonts")
+
+def font_face(name, file):
+    data = base64.b64encode(open(os.path.join(FONTS_DIR, file), "rb").read()).decode()
+    return f"@font-face{{font-family:'{name}';src:url(data:font/woff2;base64,{data}) format('woff2')}}"
 PARCH, INK, BLOOD, GOLD = "#cdb894", "#2b1d14", "#8e1414", "#e3c49a"
 CYCLE = 14  # segundos por ciclo dos terminais
 
-o = []
-a = o.append
+art, txt = [], []
 
-a(f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}" font-family="{FONT}" font-weight="bold">
+def a(s):
+    # texto e retrato ficam fora do filtro de pixelização
+    (txt if s.startswith(('<text', '<image')) else art).append(s)
+
+head = (f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}" font-family="{FONT}" shape-rendering="crispEdges">
 <title>BON333 — Year of the Eclipse</title>
 <style>
+{font_face("VT323", "VT323.woff2")}
+{font_face("Press Start 2P", "PressStart2P.woff2")}
+text{{font-weight:normal}}
+.t{{font-family:{TITLE}}}
 .flame{{transform-box:fill-box;transform-origin:50% 100%;animation:flick .35s ease-in-out infinite alternate}}
 .flame2{{animation-duration:.5s;animation-delay:.1s}}
 @keyframes flick{{0%{{transform:scale(1,1) skewX(0)}}50%{{transform:scale(.9,1.12) skewX(4deg)}}100%{{transform:scale(1.05,.92) skewX(-3deg)}}}}
@@ -55,6 +69,13 @@ a(f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/199
 @keyframes drip{{0%,60%{{transform:translateY(0);opacity:1}}100%{{transform:translateY(14px);opacity:0}}}}
 </style>
 <defs>
+<filter id="px" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">
+  <feFlood x="{PX//2}" y="{PX//2}" width="1" height="1" flood-color="#000"/>
+  <feComposite width="{PX}" height="{PX}"/>
+  <feTile result="grid"/>
+  <feComposite in="SourceGraphic" in2="grid" operator="in"/>
+  <feMorphology operator="dilate" radius="{PX//2}"/>
+</filter>
 <pattern id="bricks" width="64" height="32" patternUnits="userSpaceOnUse">
   <rect width="64" height="32" fill="#2b2826"/>
   <rect x="1" y="1" width="62" height="14" fill="#353130"/>
@@ -146,11 +167,11 @@ a('<use href="#horn" xlink:href="#horn" x="606" y="18" width="42" height="32" tr
 a('<rect x="412" y="28" width="200" height="54" fill="#1c1816" stroke="#0e0b0a" stroke-width="3"/>')
 a('<rect x="418" y="34" width="188" height="42" fill="none" stroke="#5a4e48" stroke-width="2"/>')
 a('<use href="#skull" xlink:href="#skull" x="500" y="2" width="24" height="26"/>')
-a(f'<text x="512" y="66" text-anchor="middle" font-size="34" fill="{GOLD}" letter-spacing="2">BON333</text>')
+a(f'<text x="512" y="64" text-anchor="middle" class="t" font-size="24" fill="{GOLD}">BON333</text>')
 
 def heading(x, y, text):
     a(f'<path d="M{x} {y-9}l6 6 6-6z" fill="{BLOOD}"/>')
-    a(f'<text x="{x+18}" y="{y}" font-size="15" fill="{GOLD}" letter-spacing=".5">{text}</text>')
+    a(f'<text x="{x+18}" y="{y}" class="t" font-size="8" fill="{GOLD}">{text}</text>')
 
 def parch(x, y, w, h):
     a(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="url(#grain)" stroke="#1a1412" stroke-width="3"/>')
@@ -163,7 +184,7 @@ rows = [("User:", LOGIN), ("Real Name:", esc((u["name"] or LOGIN).strip())),
         ("Repositories:", u["repositories"]["totalCount"]), ("Followers:", u["followers"]["totalCount"]),
         ("Joined:", "Year " + u["createdAt"][:4]), ("Location:", esc(u["location"] or "Unknown"))]
 for i, (k, v) in enumerate(rows):
-    a(f'<text x="98" y="{116+i*17.5:.1f}" font-size="10.5" fill="{INK}" xml:space="preserve">{k:<14}<tspan fill="#4a1010">{v}</tspan></text>')
+    a(f'<text x="98" y="{116+i*17.5:.1f}" font-size="16" fill="{INK}" xml:space="preserve">{k:<14}<tspan fill="#4a1010">{v}</tspan></text>')
 
 # --- terminais ---
 def terminal(x, y, w, h, lines, offset, title=None):
@@ -171,9 +192,9 @@ def terminal(x, y, w, h, lines, offset, title=None):
     ty = y + 22
     if title:
         a(f'<rect x="{x}" y="{y}" width="{w}" height="18" fill="#3a3533"/>')
-        a(f'<text x="{x+8}" y="{y+13}" font-size="11" fill="#d9cfbd">{title}</text>')
+        a(f'<text x="{x+8}" y="{y+13}" font-size="16" fill="#d9cfbd">{title}</text>')
         for i, g in enumerate("_□×"):
-            a(f'<text x="{x+w-46+i*14}" y="{y+13}" font-size="11" fill="#d9cfbd">{g}</text>')
+            a(f'<text x="{x+w-46+i*14}" y="{y+13}" font-size="16" fill="#d9cfbd">{g}</text>')
         ty = y + 38
     n = len(lines)
     for i, segs in enumerate(lines):
@@ -187,7 +208,7 @@ def terminal(x, y, w, h, lines, offset, title=None):
           f'keyTimes="0;{";".join(f"{start+(end-start)*k/24:.4f}" for k in range(25))};0.97" '
           f'values="0;{";".join(f"{lw*k/24:.1f}" for k in range(25))};0"/></rect></clipPath>')
         body = "".join(f'<tspan fill="{c}">{t}</tspan>' for t, c in segs)
-        a(f'<text x="{x+6}" y="{ly}" font-size="9.5" fill="#e9e2d6" clip-path="url(#{cid})" xml:space="preserve">&gt; {body}</text>')
+        a(f'<text x="{x+6}" y="{ly}" font-size="14" fill="#e9e2d6" clip-path="url(#{cid})" xml:space="preserve">&gt; {body}</text>')
     cy = ty + n * 16.5
     a(f'<rect class="blink" x="{x+10}" y="{cy-11}" width="8" height="13" fill="#e9e2d6"/>')
 
@@ -221,12 +242,12 @@ for x in (398, 626):
     a(f'<path d="M{x} 110l14 14v100l-14 14-14-14V124z" fill="#2a2321" stroke="#0e0b0a" stroke-width="2"/>')
     a(f'<use href="#brandmark" xlink:href="#brandmark" x="{x-10}" y="148" width="20" height="34" color="{BLOOD}"/>')
 a('<use href="#skull" xlink:href="#skull" x="384" y="154" width="28" height="31" opacity=".85"/>')
-a(f'<text x="512" y="278" text-anchor="middle" font-size="15" fill="{GOLD}">BON333</text>')
+a(f'<text x="512" y="280" text-anchor="middle" class="t" font-size="16" fill="{GOLD}">BON333</text>')
 
 # --- linguagens ---
 parch(380, 288, 128, 92)
-a(f'<text x="388" y="304" font-size="11" fill="{INK}">LANGUAGES:</text>')
-a(f'<text x="388" y="318" font-size="9" fill="{INK}">{" / ".join(esc(n.upper()) for n, _ in top)}</text>')
+a(f'<text x="388" y="304" font-size="16" fill="{INK}">LANGUAGES:</text>')
+a(f'<text x="388" y="318" font-size="13" fill="{INK}">{" / ".join(esc(n.upper()) for n, _ in top)}</text>')
 for i, (fill, (_, size)) in enumerate(zip(["#a31515", "#8a8480", "#6a1414"], top)):
     h = max(8, round(44 * size / top[0][1]))
     x = 392 + i * 24
@@ -240,25 +261,25 @@ a('<path d="M472 360c0-14 6-22 14-22s14 8 14 22h-6v-6h-16v6z" fill="#3a3533" str
 
 # --- complexidade ---
 parch(514, 288, 130, 92)
-a(f'<text x="522" y="304" font-size="11" fill="{INK}">CODE COMPLEXITY:</text>')
-a(f'<text x="522" y="318" font-size="11" fill="{BLOOD}">HIGH</text>')
+a(f'<text x="522" y="304" font-size="16" fill="{INK}">CODE COMPLEXITY:</text>')
+a(f'<text x="522" y="318" font-size="16" fill="{BLOOD}">HIGH</text>')
 a('<path d="M541 362a38 38 0 0 1 76 0" fill="none" stroke="#1a1412" stroke-width="14"/>')
 a('<path d="M541 362a38 38 0 0 1 76 0" fill="none" stroke="url(#gauge)" stroke-width="9"/>')
 a('<g class="needle"><path d="M579 362l-2-34h4z" fill="#d9cfbd" stroke="#1a1412"/></g><circle cx="579" cy="362" r="4" fill="#1a1412"/>')
-a(f'<text x="579" y="376" text-anchor="middle" font-size="10" fill="{BLOOD}">CURSED</text>')
+a(f'<text x="579" y="376" text-anchor="middle" font-size="15" fill="{BLOOD}">CURSED</text>')
 
 # --- barras de estatísticas ---
 def stat(y, h, label, value):
     parch(380, y, 264, h)
-    a(f'<text x="504" y="{y+15}" font-size="10.5" fill="{INK}">{label}</text>')
-    a(f'<text x="504" y="{y+29}" font-size="10.5" fill="{INK}">{value}</text>')
+    a(f'<text x="504" y="{y+15}" font-size="16" fill="{INK}">{label}</text>')
+    a(f'<text x="504" y="{y+29}" font-size="16" fill="{INK}">{value}</text>')
 
 stat(386, 36, "COMMITS (ÚLTIMO ANO):", u["contributionsCollection"]["totalCommitContributions"])
-for i in range(8):
-    a(f'<use href="#skull" xlink:href="#skull" x="{388+i*14}" y="{394+(i%2)*4}" width="16" height="18"/>')
+for i in range(5):
+    a(f'<use href="#skull" xlink:href="#skull" x="{388+i*22}" y="{391}" width="22" height="25"/>')
 stat(428, 38, "PULL REQUESTS:", f'{u["prOpen"]["totalCount"]} open / {u["prMerged"]["totalCount"]} merged')
-for i in range(6):
-    a(f'<ellipse cx="{396+i*16}" cy="447" rx="9" ry="5" fill="none" stroke="#3a3533" stroke-width="3"/>')
+for i in range(5):
+    a(f'<rect x="{388+i*21}" y="{441 if i % 2 else 438}" width="26" height="{12 if i % 2 else 18}" rx="6" fill="none" stroke="#3a3533" stroke-width="4"/>')
 stat(472, 40, "ISSUES:", f'{u["issOpen"]["totalCount"]} open / {u["issClosed"]["totalCount"]} closed')
 a(f'<path d="M418 478c8 0 12 6 12 14s-5 14-12 14-12-6-12-14 4-14 12-14z" fill="{BLOOD}" stroke="#1a1412" stroke-width="2"/>'
   '<circle cx="414" cy="488" r="2" fill="#1a1412"/><circle cx="422" cy="488" r="2" fill="#1a1412"/>')
@@ -266,16 +287,16 @@ a(f'<path d="M418 478c8 0 12 6 12 14s-5 14-12 14-12-6-12-14 4-14 12-14z" fill="{
 # --- contribuições ---
 heading(656, 88, "CONTRIBUTIONS - YEAR OF THE ECLIPSE")
 parch(652, 96, 300, 420)
-a(f'<text x="810" y="118" text-anchor="middle" font-size="12" fill="{INK}">Days/Weeks</text>')
-a(f'<text x="810" y="508" text-anchor="middle" font-size="12" fill="{INK}">{cal["totalContributions"]} contributions no último ano</text>')
+a(f'<text x="810" y="118" text-anchor="middle" font-size="17" fill="{INK}">Days/Weeks</text>')
+a(f'<text x="810" y="508" text-anchor="middle" font-size="17" fill="{INK}">{cal["totalContributions"]} contributions no último ano</text>')
 GX, GY, CW, CH, N = 688, 144, 18, 23, 14
 for c in range(N):
-    a(f'<text x="{GX+c*CW+CW/2}" y="{GY-6}" text-anchor="middle" font-size="10" fill="{INK}">{c}</text>')
-    a(f'<text x="{GX+c*CW+CW/2}" y="{GY+N*CH+13}" text-anchor="middle" font-size="10" fill="{INK}">{c}</text>')
+    a(f'<text x="{GX+c*CW+CW/2}" y="{GY-6}" text-anchor="middle" font-size="15" fill="{INK}">{c}</text>')
+    a(f'<text x="{GX+c*CW+CW/2}" y="{GY+N*CH+13}" text-anchor="middle" font-size="15" fill="{INK}">{c}</text>')
 for r in range(N):
-    a(f'<text x="{GX-6}" y="{GY+r*CH+CH/2+4}" text-anchor="end" font-size="10" fill="{INK}">{r+1}</text>')
+    a(f'<text x="{GX-6}" y="{GY+r*CH+CH/2+4}" text-anchor="end" font-size="15" fill="{INK}">{r+1}</text>')
 a(f'<rect x="{GX-2}" y="{GY-2}" width="{N*CW+4}" height="{N*CH+4}" fill="#1a0606"/>')
-shades = ["#3a0b0b", "#4a0e0e", "#5a1111", "#6d1414", "#821818", "#9a1c1c"]
+shades = ["#4f1010", "#5e1212", "#741515", "#8c1919", "#a81e1e", "#c62626"]
 # últimos 196 dias, 14 por linha (duas semanas por linha)
 recent = ([0] * N * N + days)[-N * N:]
 peak = max(recent) or 1
@@ -294,8 +315,8 @@ bx, by = GX + N * CW / 2, GY + N * CH / 2
 a(f'<rect x="{bx-26}" y="{by-58}" width="52" height="116" rx="8" fill="#0b0909" opacity=".8"/>')
 a(f'<g class="brand"><use href="#brandmark" xlink:href="#brandmark" x="{bx-30}" y="{by-50}" width="60" height="100" color="#e01818"/></g>')
 a(f'<rect x="{bx-102}" y="{by-22}" width="72" height="40" fill="#0b0909" opacity=".85"/>')
-a(f'<text x="{bx-66}" y="{by-5}" text-anchor="middle" font-size="12" fill="#e9e2d6">BRAND OF</text>')
-a(f'<text x="{bx-66}" y="{by+11}" text-anchor="middle" font-size="12" fill="#e9e2d6">sacrifice</text>')
+a(f'<text x="{bx-66}" y="{by-5}" text-anchor="middle" font-size="17" fill="#e9e2d6">BRAND OF</text>')
+a(f'<text x="{bx-66}" y="{by+11}" text-anchor="middle" font-size="17" fill="#e9e2d6">sacrifice</text>')
 # behelit
 a(f'<path d="M676 112c8 0 12 6 12 14s-5 14-12 14-12-6-12-14 4-14 12-14z" fill="{BLOOD}" stroke="#1a1412" stroke-width="2"/>'
   '<circle cx="672" cy="122" r="2" fill="#1a1412"/><circle cx="680" cy="122" r="2" fill="#1a1412"/><path d="M671 131q5 3 10 0" stroke="#1a1412" fill="none"/>')
@@ -308,5 +329,5 @@ for x in (140, 300, 720, 880):
     a(f'<circle class="drip" style="animation-delay:{x%5}s" cx="{x}" cy="528" r="2.5" fill="{BLOOD}"/>')
 
 a(f'<rect width="{W}" height="{H}" fill="url(#vignette)" pointer-events="none"/>')
-a('</svg>')
-open(out_path, "w", encoding="utf-8").write("\n".join(o))
+open(out_path, "w", encoding="utf-8").write("\n".join(
+    [head, '<g filter="url(#px)">', *art, '</g>', '<g text-rendering="optimizeSpeed">', *txt, '</g>', '</svg>']))
