@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/eclipse-card.svg" alt="BON333 — Year of the Eclipse" width="100%">
+</p>
+
 # About Me:
 I’m Hussein<br>I’m interested in Java, DSA, operating systems and cybersecurity.<br>I’m currently learning Java, c and linux.<br>I’m looking to collaborate on projects based on java.<br>How to reach me: contact me on husseinfaquircontact@gmail.com<br>Fun fact: In linux, cowthink from cowsay package will make a cow think your deepest thoughts in ASCII.
 
