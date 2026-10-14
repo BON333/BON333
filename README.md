@@ -17,8 +17,7 @@
       <img src="assets/sudo-wizard.png" alt="Hussein as a wizard holding a burning ThinkPad: I speak fluent sudo" width="100%" />
     </td>
     <td width="100%">
-      <b>Hey there! I'm Hussein</b><br><br>
-      Aspiring software engineer with a passion for data structures and algorithms.<br><br>
+      <b>Hey there!</b><br><br>
       By day, I'm writing code in <b>Java and C</b> and digging into operating systems and cybersecurity.<br><br>
       When I'm not breaking my own Linux setup, I'm teaching <code>cowthink</code> to think my deepest thoughts in ASCII.
       <br><br>
@@ -31,7 +30,7 @@
   </tr>
 </table>
 
-### 🔗 Top Projects (built to avoid manual labor)
+### 🔗 Top Projects
 
 <table>
   <tr>
@@ -39,7 +38,7 @@
       <ul>
         <li><a href="https://github.com/BON333/BonVel-linux"><b>BONVEL LINUX</b></a> &nbsp; My own Linux setup, because configuring things for hours beats doing anything productive.</li>
         <br>
-        <li><a href="https://github.com/BON333/ubermensch"><b>ÜBERMENSCH</b></a> &nbsp; Black and white Hyprland, lightning in the terminal and Nietzsche quotes. God is dead, and so is my free time.</li>
+        <li><a href="https://github.com/BON333/ubermensch"><b>ÜBERMENSCH</b></a> &nbsp; Black and white Hyprland, lightning in the terminal and Nietzsche quotes.</li>
         <br>
         <li><a href="https://github.com/BON333/PassAval"><b>PASSAVAL</b></a> &nbsp; Graph algorithms applied to real life, since real life refused to be a tree.</li>
       </ul>
@@ -59,8 +58,7 @@
 
 <br>
 
-> Code is never finished. It only becomes slightly less terrible over time.<br><br>
-> Every commit I make is essentially just a small, desperate apology to my future self. Someday I will return to this codebase, look at the spaghetti I've written, and wonder who let me anywhere near a keyboard.
+> Always one commit away from becoming the best programmer I can be.
 
 <br>
 
