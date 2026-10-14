@@ -1,31 +1,77 @@
-<p align="center">
-  <img src="assets/eclipse-card.svg" alt="BON333 — Year of the Eclipse" width="100%">
-</p>
+<div align="center">
+  <img src="assets/banner.jpg" alt="Banner" width="100%" height="250" />
+</div>
 
-# About Me:
-I’m Hussein<br>I’m interested in Java, DSA, operating systems and cybersecurity.<br>I’m currently learning Java, c and linux.<br>I’m looking to collaborate on projects based on java.<br>How to reach me: contact me on husseinfaquircontact@gmail.com<br>Fun fact: In linux, cowthink from cowsay package will make a cow think your deepest thoughts in ASCII.
+<hr>
+<h1 align="center">
+  Olá <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px"> I'm Hussein
+</h1>
 
+<hr>
 
-## 🌐 Socials:
-[![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:husseinfaquircontact@gmail.com) 
+### 🔗 Know About Me
 
-# 💻 Tech Stack:
-![C](https://img.shields.io/badge/c-%2300599C.svg?style=plastic&logo=c&logoColor=white) ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=plastic&logo=openjdk&logoColor=white) ![Joomla](https://img.shields.io/badge/joomla-%235091CD.svg?style=plastic&logo=joomla&logoColor=white) ![JavaFX](https://img.shields.io/badge/javafx-%23FF0000.svg?style=plastic&logo=javafx&logoColor=white) ![Steam](https://img.shields.io/badge/steam-%23000000.svg?style=plastic&logo=steam&logoColor=white)
-# 📊 GitHub Stats:
-![](https://github-readme-stats.shion.dev/api?username=BON333&theme=dark&hide_border=false&include_all_commits=true&count_private=false)<br/>
-![](https://streak-stats.demolab.com/?user=BON333&theme=dark&hide_border=false)<br/>
-![](https://github-readme-stats.shion.dev/api/top-langs/?username=BON333&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact)
+<table>
+  <tr>
+    <td width="30%">
+      <img src="assets/brain.jpg" alt="Brain" width="100%" />
+    </td>
+    <td width="100%">
+      <b>Hey there! I'm Hussein</b><br><br>
+      Aspiring software engineer with a passion for data structures and algorithms.<br><br>
+      By day, I'm writing code in <b>Java and C</b> and digging into operating systems and cybersecurity.<br><br>
+      When I'm not breaking my own Linux setup, I'm teaching <code>cowthink</code> to think my deepest thoughts in ASCII.
+      <br><br>
+      <b>⚙️ Tech Stack:</b><br>
+      <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+      <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" />
+      <img src="https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white" />
+      <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" />
+    </td>
+  </tr>
+</table>
 
-## 🏆 GitHub Trophies
-![](https://github-profile-trophy.vercel.app/?username=BON333&theme=radical&no-frame=false&no-bg=false&margin-w=4)
+### 🔗 Top Projects (built to avoid manual labor)
 
-### ✍️ Random Dev Quote
-![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)
+<table>
+  <tr>
+    <td width="80%">
+      <ul>
+        <li><a href="https://github.com/BON333/BonVel-linux"><b>BONVEL LINUX</b></a> &nbsp; My own Linux setup, because configuring things for hours beats doing anything productive.</li>
+        <br>
+        <li><a href="https://github.com/BON333/ubermensch"><b>ÜBERMENSCH</b></a> &nbsp; Black and white Hyprland, lightning in the terminal and Nietzsche quotes. God is dead, and so is my free time.</li>
+        <br>
+        <li><a href="https://github.com/BON333/PassAval"><b>PASSAVAL</b></a> &nbsp; Graph algorithms applied to real life, since real life refused to be a tree.</li>
+      </ul>
+    </td>
+    <td width="20%">
+      <img src="assets/laptop.jpg" alt="Laptop" width="100%" />
+    </td>
+  </tr>
+</table>
 
-### 🔝 Top Contributed Repo
-![](https://github-contributor-stats.vercel.app/api?username=BON333&limit=5&theme=dark&combine_all_yearly_contributions=true)
+### 🔗 Connect
 
----
-[![](https://komarev.com/ghpvc/?username=BON333&icon=2&color=0)](https://visitcount.itsvg.in)
+<div align="center">
+  <a href="https://github.com/BON333"><img src="https://img.shields.io/badge/GITHUB-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
+  <a href="mailto:husseinfaquircontact@gmail.com"><img src="https://img.shields.io/badge/GMAIL-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+</div>
 
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+<br>
+
+> Code is never finished. It only becomes slightly less terrible over time.<br><br>
+> Every commit I make is essentially just a small, desperate apology to my future self. Someday I will return to this codebase, look at the spaghetti I've written, and wonder who let me anywhere near a keyboard.
+
+<br>
+
+### 🔗 Streak
+
+<div align="center">
+  <img src="https://streak-stats.demolab.com/?user=BON333&theme=tokyonight&hide_border=false" alt="Streak" />
+</div>
+
+### 🔗 Contribution
+
+<div align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=BON333&theme=tokyo-night" alt="Contribution Graph" width="100%" />
+</div>
