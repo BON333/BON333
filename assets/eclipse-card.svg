@@ -197,7 +197,7 @@
 <rect x="380" y="386" width="264" height="36" fill="url(#grain)" stroke="#1a1412" stroke-width="3"/>
 <rect x="383" y="389" width="258" height="30" fill="none" stroke="#a8936e" stroke-width="1"/>
 <text x="504" y="401" font-size="10.5" fill="#2b1d14">COMMITS (ÚLTIMO ANO):</text>
-<text x="504" y="415" font-size="10.5" fill="#2b1d14">38</text>
+<text x="504" y="415" font-size="10.5" fill="#2b1d14">40</text>
 <use href="#skull" xlink:href="#skull" x="388" y="394" width="16" height="18"/>
 <use href="#skull" xlink:href="#skull" x="402" y="398" width="16" height="18"/>
 <use href="#skull" xlink:href="#skull" x="416" y="394" width="16" height="18"/>
@@ -226,7 +226,7 @@
 <rect x="652" y="96" width="300" height="420" fill="url(#grain)" stroke="#1a1412" stroke-width="3"/>
 <rect x="655" y="99" width="294" height="414" fill="none" stroke="#a8936e" stroke-width="1"/>
 <text x="810" y="118" text-anchor="middle" font-size="12" fill="#2b1d14">Days/Weeks</text>
-<text x="810" y="508" text-anchor="middle" font-size="12" fill="#2b1d14">46 contributions no último ano</text>
+<text x="810" y="508" text-anchor="middle" font-size="12" fill="#2b1d14">48 contributions no último ano</text>
 <text x="697.0" y="138" text-anchor="middle" font-size="10" fill="#2b1d14">0</text>
 <text x="697.0" y="479" text-anchor="middle" font-size="10" fill="#2b1d14">0</text>
 <text x="715.0" y="138" text-anchor="middle" font-size="10" fill="#2b1d14">1</text>
@@ -476,7 +476,7 @@
 <rect class="pulse" style="animation-delay:2.39s" x="887" y="444" width="16" height="21" fill="#e02a2a"/>
 <rect x="905" y="444" width="16" height="21" fill="#821818"/>
 <rect class="pulse" style="animation-delay:2.65s" x="905" y="444" width="16" height="21" fill="#e02a2a"/>
-<rect x="923" y="444" width="16" height="21" fill="#6d1414"/>
+<rect x="923" y="444" width="16" height="21" fill="#821818"/>
 <rect class="pulse" style="animation-delay:0.28s" x="923" y="444" width="16" height="21" fill="#e02a2a"/>
 <rect x="788.0" y="247.0" width="52" height="116" rx="8" fill="#0b0909" opacity=".8"/>
 <g class="brand"><use href="#brandmark" xlink:href="#brandmark" x="784.0" y="255.0" width="60" height="100" color="#e01818"/></g>
